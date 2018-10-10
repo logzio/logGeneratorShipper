@@ -7,5 +7,5 @@ All you need is a terminal and the host ursl which you can get form the log ship
 2. Copy the relevant url (http or https)
 3. Run the script using python3 and type the values you want:
   a. How many random log lines you want to ship
-  b. The url you copied earlier (example: http://listener.logz.io:8070/?token=<your token>&type=MY-TYPE
+  b. The url you copied earlier (example: http://listener.logz.io:8070/?token=your_token&type=MY-TYPE
      if you wish to change the type, just replace the "MY-TYPE" string
