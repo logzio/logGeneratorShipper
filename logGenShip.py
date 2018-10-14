@@ -2,7 +2,7 @@ from random import randint, choice
 import requests
 
 
-def log_generator():
+def log_generator(account_url):
         # Create a log line constructed of various variables
         mes_list = ["HTTP error 401 (UNAUTHORIZED)", "HTTP error 400 (bad request)", "HTTP error 403 (FORBIDDEN)",
                     "HTTP error 404 (not found)", "HTTP error 500 (internal server error)",
@@ -24,7 +24,7 @@ def log_generator():
                                                       ip_address=choice(ip_address), random_field=rand_field)
         final_log = log + '}'
         
-        host_url = accountUrl
+        host_url = account_url
         data = final_log
         r = requests.post(host_url, data)
 
@@ -33,7 +33,7 @@ def log_generator():
 
 x = int(input("How many log lines would you like? "))
 accountUrl = input("Paste the url from log shipping page: ")
-count = 0
-while count in range(0, x):
-        log_generator()
-        count = count + 1
+
+if __name__ == '__main__':
+    for count in range(0, x):
+        log_generator(accountUrl)
