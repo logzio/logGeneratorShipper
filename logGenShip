@@ -1,20 +1,50 @@
 from random import randint, choice
 import requests
+from datetime import datetime
+from json import dumps
 
 
 def loggen():
         # Create a log line constructed of various predefined variables:
         mes_list = ["HTTP error 401 (UNAUTHORIZED)", "HTTP error 400 (bad request)", "HTTP error 403 (FORBIDDEN)",
-                    "HTTP error 404 (not found)", "HTTP error 500 (internal server error)", "SECURITY ALERT - Your host is under attack!"]
-        quantity = [4231, 435, 256, 2456, 34567, 675, 5234, 3, 23, 5, 6234, 234, 325, 623456, 1, 4, 8, 5, 2345, 123, 76, 12345, 6534674586, 235423453, 231, 1221]
-        host = ["host_1","host_2","host_3","host_4","host_5","host_6","host_7","host_8","host_9","host_10","host_11","host_12","host_13","host_666"]
-        ipAddress = ["192.168.53.24", "10.10.12.138", "103.10.10.11", "192.168.1.1", "8.8.8.8", "4.4.4.4", "192.168.32.123", "172.38.282.1"]
-        rand_field ='"field_{index}":"same_value"' .format(index = (randint(0, 9)))
-        band = ["nirvana", "beatles", "queen", "kaveret", "ac_dc", "tallest_man_on_earth", "hiss_golden_messanger", "eminem", "snoop_dog", "led_zepplin"]
-        log = '{{"message": "{message}", "type": "demo_logs", "host": "{host}", "quantity": {qty}, "IP_Address": "{ip}", "bands": "{band}", {random_field}'.format(message=choice(mes_list), host=choice(host), qty=choice(quantity), ip=choice(ipAddress), band=choice(band), random_field=rand_field)
-        final_log = log +'}'
-        
-        return final_log
+                    "HTTP error 404 (not found)", "HTTP error 500 (internal server error)",
+                    "SECURITY ALERT - Your host is under attack!"]
+
+        now = datetime.now()
+        dayArray = [now.day, now.day - 1, now.day - 2, now.day - 3, now.day - 4, now.day - 5]
+        day = choice(dayArray)
+        hourArray = [now.hour, now.hour - 1, now.hour - 2, now.hour - 3, now.hour - 4, now.hour - 5, now.hour - 7,
+                     now.hour - 8,
+                     now.hour - 9, now.hour - 10, now.hour - 12]
+        hour = choice(hourArray)
+        minuteArray = [now.minute, now.minute - 10, now.minute - 7, now.minute - 5, now.minute - 4, now.minute - 1,
+                       now.minute - 3]
+        minute = choice(minuteArray)
+        startDate = datetime(now.year, now.month, day, hour, minute)
+        timestamp = [startDate.strftime('%Y-%m-%dT%H%M%S.%fZ')]
+
+        quantity = [4231, 435, 256, 2456, 34567, 675, 5234, 3, 23, 5, 6234, 234, 325, 623456, 1, 4, 8, 5, 2345, 123, 76,
+                    12345,
+                    6534674586, 235423453, 231, 1221]
+        host = ["host_1", "host_2", "host_3", "host_4", "host_5", "host_6", "host_7", "host_8", "host_9", "host_10",
+                "host_11",
+                "host_12", "host_13", "host_666"]
+        ipAddress = ["192.168.53.24", "10.10.12.138", "103.10.10.11", "192.168.1.1", "8.8.8.8", "4.4.4.4",
+                     "192.168.32.123",
+                     "172.38.282.1"]
+        rand_field = '"field_{index}":"same_value"'.format(index=(randint(0, 9)))
+        band = ["nirvana", "beatles", "queen", "kaveret", "ac_dc", "tallest_man_on_earth", "hiss_golden_messanger",
+                "eminem",
+                "snoop_dog", "led_zepplin"]
+        log = {
+                'message': "{ts} {message}".format(ts=timestamp[0], message=choice(mes_list)),
+                'quantity': choice(quantity),
+                'host': choice(host),
+                'ipAddress': choice(ipAddress),
+                'band': choice(band),
+        }
+
+        return(dumps(log))
 
 
 if __name__ == '__main__':
@@ -25,5 +55,5 @@ if __name__ == '__main__':
                 data = '{}\n{}'.format(data, loggen())
 
         response = requests.post(accountUrl, data)
-        print(response)
+        print(response.status_code, response.content)
 
