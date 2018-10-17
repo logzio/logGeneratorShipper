@@ -17,7 +17,7 @@ def loggen():
         minuteArray = [now.minute, now.minute - 10, now.minute - 7, now.minute - 5, now.minute - 4, now.minute - 1,
                        now.minute - 3]
         startDate = datetime(now.year, now.month, choice(dayArray), choice(hourArray), choice(minuteArray))
-        timestamp = [startDate.strftime('%Y-%m-%dT%H%M%S.%fZ')]
+        timestamp = startDate.strftime('%Y-%m-%dT%H%M%S.%fZ')
 
         quantity = [4231, 435, 256, 2456, 34567, 675, 5234, 3, 23, 5, 6234, 234, 325, 623456, 1, 4, 8, 5, 2345, 123, 76,
                     12345,
@@ -33,12 +33,12 @@ def loggen():
                 "eminem",
                 "snoop_dog", "led_zepplin"]
         log = {
-                '@timestamp': timestamp,
-                'message': "{message}".format(message=choice(mes_list)),
-                'quantity': choice(quantity),
-                'host': choice(host),
-                'ipAddress': choice(ipAddress),
-                'band': choice(band),
+                "@timestamp": timestamp,
+                "message": choice(mes_list),
+                "quantity": choice(quantity),
+                "host": choice(host),
+                "ipAddress": choice(ipAddress),
+                "band": choice(band),
         }
 
         return(dumps(log))
@@ -47,10 +47,13 @@ def loggen():
 if __name__ == '__main__':
         x = int(input("How many log lines would you like? "))
         accountUrl = input("Paste the url from log shipping page: ")
-        data = ''
-        for count in range(0, x):
-                data = '{}\n{}'.format(data, loggen())
+        data = "\n".join([loggen() for i in range(x)])
+        # for count in range(0, x):
+        #         data = '{0}\n{1}'.format(data, loggen())
+
+        print(data)
 
         response = requests.post(accountUrl, data)
         print(response.status_code, response.content)
+
 
