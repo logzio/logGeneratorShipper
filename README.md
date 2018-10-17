@@ -14,4 +14,4 @@ All you need is a terminal and the host ursl which you can get form the log ship
   b. The url you copied earlier (example: http://listener.logz.io:8070/?token=your_token&type=MY-TYPE
      if you wish to change the type, just replace the "MY-TYPE" string
 
-*** Many thanks for Maor Goaz for his help upgrading this script!***
+*** Many thanks to Maor Goaz and Amir Tugi for their help upgrading this script!***
