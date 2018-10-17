@@ -12,15 +12,11 @@ def loggen():
 
         now = datetime.now()
         dayArray = [now.day, now.day - 1, now.day - 2, now.day - 3, now.day - 4, now.day - 5]
-        day = choice(dayArray)
         hourArray = [now.hour, now.hour - 1, now.hour - 2, now.hour - 3, now.hour - 4, now.hour - 5, now.hour - 7,
-                     now.hour - 8,
-                     now.hour - 9, now.hour - 10, now.hour - 12]
-        hour = choice(hourArray)
+                     now.hour - 8]
         minuteArray = [now.minute, now.minute - 10, now.minute - 7, now.minute - 5, now.minute - 4, now.minute - 1,
                        now.minute - 3]
-        minute = choice(minuteArray)
-        startDate = datetime(now.year, now.month, day, hour, minute)
+        startDate = datetime(now.year, now.month, choice(dayArray), choice(hourArray), choice(minuteArray))
         timestamp = [startDate.strftime('%Y-%m-%dT%H%M%S.%fZ')]
 
         quantity = [4231, 435, 256, 2456, 34567, 675, 5234, 3, 23, 5, 6234, 234, 325, 623456, 1, 4, 8, 5, 2345, 123, 76,
@@ -37,7 +33,8 @@ def loggen():
                 "eminem",
                 "snoop_dog", "led_zepplin"]
         log = {
-                'message': "{ts} {message}".format(ts=timestamp[0], message=choice(mes_list)),
+                '@timestamp': timestamp,
+                'message': "{message}".format(message=choice(mes_list)),
                 'quantity': choice(quantity),
                 'host': choice(host),
                 'ipAddress': choice(ipAddress),
